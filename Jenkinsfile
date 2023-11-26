@@ -33,7 +33,7 @@ post {
         always {
             // Cleanup: remove the Docker container
             script {
-                sh "docker container rm -f $(docker container ls -a -q --filter ancestor=${DOCKER_IMAGE})"
+                sh 'docker container rm -f $(docker container ls -a -q --filter ancestor=${DOCKER_IMAGE})'
             }
             
             // Cleanup: remove the Docker image
