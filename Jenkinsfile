@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'springbootdemo'
         HOST_PATH = '${WORKSPACE}/test-reports'
-        CONTAINER_PATH = '/workspace/test-reports'
+        CONTAINER_PATH = '/workspace/test-reports/surefire-reports'
     }
     
     stages {
