@@ -26,7 +26,7 @@ pipeline {
         stage('Publish JUnit Test Results') {
             steps {
                 // Publish JUnit test results to Jenkins
-                junit "${HOST_PATH}/**/*.xml"
+                junit "${HOST_PATH}/test-reports/surefire-reports/*.xml"
             }
         }
     }
