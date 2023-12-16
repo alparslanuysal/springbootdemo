@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'springbootdemo'
-        HOST_PATH = '${WORKSPACE}/junit-reports'
-        CONTAINER_PATH = '/workspace/app/target/surefire-reports'
+        HOST_PATH = '${WORKSPACE}/test-reports/surefire-reports'
+        CONTAINER_PATH = '/workspace/test-reports'
     }
     
     stages {
@@ -15,8 +15,9 @@ pipeline {
                     // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} ."
 
-                    // Run tests inside the Docker container
-                    sh "docker run -v ${HOST_PATH}:${CONTAINER_PATH} ${DOCKER_IMAGE} mvn clean test"
+                    // Get tests inside the Docker container
+                    docker create --name temp-container ${DOCKER_IMAGE}:latest
+                    docker cp temp-container:/workspace/test-reports ${HOST_PATH}
                 }
             }
         }
