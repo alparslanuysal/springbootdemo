@@ -20,4 +20,10 @@ COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
 COPY --from=build ${EXTRACTED}/snapshot-dependencies/ ./
 COPY --from=build ${EXTRACTED}/application/ ./
 
-ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
+# Define an entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Define a default command to run the entrypoint script
+CMD ["/bin/sh", "/entrypoint.sh"]
+
