@@ -16,8 +16,9 @@ pipeline {
                     sh "docker build -t ${DOCKER_IMAGE} ."
 
                     // Get tests inside the Docker container
-                    docker create --name temp-container ${DOCKER_IMAGE}:latest
-                    docker cp temp-container:/workspace/test-reports ${HOST_PATH}
+                    sh "docker create --name temp-container ${DOCKER_IMAGE}:latest"
+                    sh "docker cp temp-container:/workspace/test-reports ${HOST_PATH}"
+                    sh "docker rm temp-container"
                 }
             }
         }
