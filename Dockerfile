@@ -6,6 +6,12 @@ WORKDIR /workspace/app
 COPY pom.xml .
 COPY src src
 
+#Run maven tests
+RUN mvn clean test
+# Copy test reports to a separate directory
+RUN mkdir /workspace/test-reports
+RUN cp -R target/surefire-reports /workspace/test-reports
+
 RUN mvn clean install
 RUN mkdir target/extracted
 RUN java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
@@ -19,6 +25,9 @@ COPY --from=build ${EXTRACTED}/dependencies/ ./
 COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
 COPY --from=build ${EXTRACTED}/snapshot-dependencies/ ./
 COPY --from=build ${EXTRACTED}/application/ ./
+
+# Copy test reports from the build stage
+COPY --from=build /workspace/test-reports /workspace/test-reports
 
 # Define an entrypoint script
 COPY entrypoint.sh /entrypoint.sh
