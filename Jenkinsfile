@@ -26,7 +26,7 @@ pipeline {
         stage('Publish JUnit Test Results') {
             steps {
                 // Publish JUnit test results to Jenkins
-                junit "${WORKSPACE}/test-reports/surefire-reports/*.xml"
+                junit "${WORKSPACE}/test-reports/*.xml"
             }
         }
     }
