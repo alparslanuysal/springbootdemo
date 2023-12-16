@@ -1,7 +1,3 @@
 #!/bin/sh
+exec java org.springframework.boot.loader.JarLauncher
 
-if [ "$SKIP_STARTUP" = "true" ]; then
-  echo "Skipping application startup."
-else
-  exec java org.springframework.boot.loader.JarLauncher
-fi
