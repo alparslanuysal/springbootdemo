@@ -28,6 +28,22 @@ pipeline {
                 junit "**/test-reports/*.xml"
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Execute Maven clean and install
+                    def mavenHome = tool 'Maven'
+                    def mavenCMD = "${mavenHome}/bin/mvn"
+                    sh "${mavenCMD} clean install"
+
+                    // Execute SonarQube scan
+                    withSonarQubeEnv('sonarqube') {
+                        sh "${mavenCMD} sonar:sonar"
+                    }
+                }
+            }
+        }
     }
 
 post {
