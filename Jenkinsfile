@@ -44,6 +44,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Quality Gate Check') {
+            steps {
+                script {
+                    // Execute Quality Gate check
+                    withSonarQubeEnv('sonarqube') {
+                        def qualityGateStatus = waitForQualityGate()
+                        if (qualityGateStatus != 'OK') {
+                            error "Quality Gate check failed: ${qualityGateStatus}"
+                        }
+                    }
+                }
+            }
+        }
     }
 
 post {
