@@ -1,0 +1,9 @@
+replicaCount: 1
+
+image:
+  repository: nexusrepository
+  tag: latest
+
+service:
+  port: 8080
+  type: ClusterIP   # Change to NodePort or LoadBalancer if needed
