@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "springbootdemo.fullname" . }}
+  name: "springbootdemo"
   labels:
-    app: {{ include "springbootdemo.name" . }}
+    app: "springbootdemo"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "springbootdemo.name" . }}
+      app: "springbootdemo"
   template:
     metadata:
       labels:
-        app: {{ include "springbootdemo.name" . }}
+        app: "springbootdemo"
     spec:
       containers:
         - name: {{ .Chart.Name }}
