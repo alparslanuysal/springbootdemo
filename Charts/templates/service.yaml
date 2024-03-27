@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "springbootdemo.fullname" . }}
+  name: "springbootdemo"
   labels:
-    app: {{ include "springbootdemo.name" . }}
+    app: "springbootdemo"
 spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.port }}
   selector:
-    app: {{ include "springbootdemo.name" . }}
+    app: "springbootdemo"
   type: {{ .Values.service.type }}
